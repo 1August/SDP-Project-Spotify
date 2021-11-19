@@ -1,4 +1,4 @@
-package com.company.Interfaces;
+package com.company.ObserverPattern;
 
 import com.company.Entities.Song;
 

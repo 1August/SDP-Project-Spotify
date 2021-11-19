@@ -1,6 +1,6 @@
 package com.company.Entities;
 
-import com.company.Interfaces.Observer;
+import com.company.ObserverPattern.Observer;
 
 import java.util.List;
 

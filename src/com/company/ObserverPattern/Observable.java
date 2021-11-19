@@ -1,4 +1,4 @@
-package com.company.Interfaces;
+package com.company.ObserverPattern;
 
 public interface Observable {
     void register(Observer observer);

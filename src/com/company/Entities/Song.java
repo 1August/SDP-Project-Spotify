@@ -6,25 +6,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Song {
+    private Song song;
     //    private int id;
     private String songName;
     private int publishedYear;
     private String description;
     private List<String> genres = new ArrayList<>();
-    private IFormat format;
+    private String rating;
+//    private IFormat format;
 
-    public Song(String songName, int publishedYear, String description, List<String> genres, IFormat format) {
-        this.songName = songName;
-        this.publishedYear = publishedYear;
-        this.description = description;
-        this.genres = genres;
-        this.format = format;
-        encode();
+//    public Song(String songName, int publishedYear, String description, List<String> genres, String rating) {
+//        this.songName = songName;
+//        this.publishedYear = publishedYear;
+//        this.description = description;
+//        this.genres = genres;
+//       // this.format = format;
+//        this.rating = rating;
+////        encode();
+//    }
+
+    public Song(Song song) {
+        this.song = song;
     }
 
-    private void encode(){
-        format.encode();
+    public Song() {
+
     }
+
+//    private void encode(){
+//        format.encode();
+//    }
 
     public String getSongName() {
         return songName;
@@ -50,21 +61,22 @@ public class Song {
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }
-    public IFormat getFormat() {
-        return format;
+    public String getRating() {
+        return rating;
     }
-    public void setFormat(IFormat format) {
-        this.format = format;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     @Override
     public String toString() {
         return "Song{" +
-                "songName='" + songName + '\'' +
-                ", publishedYear=" + publishedYear +
-                ", description='" + description + '\'' +
-                ", genres=" + genres +
-                ", formatName=" + format +
+                "songName='" + getSongName() + '\'' +
+                ", publishedYear=" + getPublishedYear() +
+                ", description='" + getDescription() + '\'' +
+                ", genres=" + getGenres() +
+//                ", formatName=" + format +
+                ", Rating=" + getRating() +
 //                ", formatCode=" + format.getFormatCode() +
                 '}';
     }

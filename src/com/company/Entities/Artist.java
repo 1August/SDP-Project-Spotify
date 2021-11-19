@@ -1,7 +1,7 @@
 package com.company.Entities;
 
-import com.company.Interfaces.Observable;
-import com.company.Interfaces.Observer;
+import com.company.ObserverPattern.Observable;
+import com.company.ObserverPattern.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
