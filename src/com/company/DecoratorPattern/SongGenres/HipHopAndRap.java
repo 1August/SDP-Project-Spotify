@@ -13,6 +13,7 @@ public class HipHopAndRap extends SongDecorator {
     public HipHopAndRap(Song song) {
         super(song);
     }
+    List<String> genres = super.getGenres();
 
     @Override
     public String getSongName() {
@@ -31,7 +32,8 @@ public class HipHopAndRap extends SongDecorator {
 
     @Override
     public List<String> getGenres() {
-        return super.getGenres();
+        genres.add("Hip-Hop/Rap");
+        return genres;
     }
 
 }

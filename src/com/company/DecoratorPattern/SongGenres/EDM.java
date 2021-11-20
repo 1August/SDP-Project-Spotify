@@ -7,13 +7,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class EDM extends SongDecorator {
-
+    List<String> genres = super.getGenres();
     public EDM(Song song) {
         super(song);
 
-    }
-    String genre(){
-        return "EDM";
     }
 
     @Override
@@ -33,9 +30,8 @@ public class EDM extends SongDecorator {
 
     @Override
     public List<String> getGenres() {
-        super.getGenres().add(this.genre());
-        return super.getGenres();
+        genres.add("EDM");
+        return genres;
     }
-
 
 }

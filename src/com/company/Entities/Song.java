@@ -1,5 +1,7 @@
 package com.company.Entities;
 
+import com.company.AudioFormats.IFormat;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,25 +13,25 @@ public class Song {
     private String description;
     private List<String> genres = new ArrayList<>();
     private String rating;
-//    private IFormat format;
+    private IFormat format;
 
-    public Song(String songName, int publishedYear, String description, List<String> genres, String rating) {
+    public Song(String songName, int publishedYear, String description, List<String> genres, String rating, IFormat format) {
         this.songName = songName;
         this.publishedYear = publishedYear;
         this.description = description;
         this.genres = genres;
-       // this.format = format;
+        this.format = format;
         this.rating = rating;
-//        encode();
+        encode();
     }
 
     public Song(Song song) {
         this.song = song;
     }
 
-//    private void encode(){
-//        format.encode();
-//    }
+    private void encode(){
+        format.encode();
+    }
 
     public String getSongName() {
         return songName;
@@ -61,6 +63,12 @@ public class Song {
     public void setRating(String rating) {
         this.rating = rating;
     }
+    public IFormat getFormat() {
+        return format;
+    }
+    public void setFormat(IFormat format) {
+        this.format = format;
+    }
 
     @Override
     public String toString() {
@@ -68,8 +76,8 @@ public class Song {
                 "songName='" + getSongName() + '\'' +
                 ", publishedYear=" + getPublishedYear() +
                 ", description='" + getDescription() + '\'' +
-                ", genres=" + getGenres() +
-//                ", formatName=" + format +
+                ", genres=" + getGenres()+
+                ", formatName=" + format +
                 ", Rating=" + getRating() +
 //                ", formatCode=" + format.getFormatCode() +
                 '}';

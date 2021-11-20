@@ -1,7 +1,7 @@
 package com.company.AudioFormats;
 
 public interface IFormat {
-    //    String formatName = "Default";
+//    String formatName = "Default";
 //    String formatCode = "XNSS-HSJW-3NGU-8XTJ";
 
     public String encode();

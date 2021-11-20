@@ -11,9 +11,6 @@ public class Top10 extends SongDecorator {
         super(song);
     }
 
-    public Top10(String songName, int publishedYear, String description, List<String> genres, String rating) {
-        super(songName, publishedYear, description, genres, rating);
-    }
     String rating(){
         return "Top-10";
     }
