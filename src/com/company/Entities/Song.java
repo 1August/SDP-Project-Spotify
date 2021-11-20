@@ -79,7 +79,7 @@ public class Song {
                 ", genres=" + getGenres()+
                 ", formatName=" + format +
                 ", Rating=" + getRating() +
-//                ", formatCode=" + format.getFormatCode() +
+             //  ", formatCode=" + format.getFormatCode() +
                 '}';
     }
 }
