@@ -1,8 +1,6 @@
 package com.company.DecoratorPattern.SongGenres;
 
-import com.company.AudioFormats.IFormat;
 import com.company.DecoratorPattern.SongDecorator;
-import com.company.DecoratorPattern.SongRatings.Top10;
 import com.company.Entities.Song;
 
 import java.util.Collections;
@@ -12,6 +10,10 @@ public class EDM extends SongDecorator {
 
     public EDM(Song song) {
         super(song);
+
+    }
+    String genre(){
+        return "EDM";
     }
 
     @Override
@@ -31,7 +33,8 @@ public class EDM extends SongDecorator {
 
     @Override
     public List<String> getGenres() {
-        return Collections.singletonList(super.getGenres() + "Electronic Music");
+        super.getGenres().add(this.genre());
+        return super.getGenres();
     }
 
 

@@ -1,7 +1,5 @@
 package com.company.Entities;
 
-import com.company.AudioFormats.IFormat;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,22 +13,18 @@ public class Song {
     private String rating;
 //    private IFormat format;
 
-//    public Song(String songName, int publishedYear, String description, List<String> genres, String rating) {
-//        this.songName = songName;
-//        this.publishedYear = publishedYear;
-//        this.description = description;
-//        this.genres = genres;
-//       // this.format = format;
-//        this.rating = rating;
-////        encode();
-//    }
+    public Song(String songName, int publishedYear, String description, List<String> genres, String rating) {
+        this.songName = songName;
+        this.publishedYear = publishedYear;
+        this.description = description;
+        this.genres = genres;
+       // this.format = format;
+        this.rating = rating;
+//        encode();
+    }
 
     public Song(Song song) {
         this.song = song;
-    }
-
-    public Song() {
-
     }
 
 //    private void encode(){

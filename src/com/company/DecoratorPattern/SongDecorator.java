@@ -1,7 +1,5 @@
 package com.company.DecoratorPattern;
 
-import com.company.AudioFormats.IFormat;
-import com.company.Entities.Artist;
 import com.company.Entities.Song;
 
 import java.util.List;
@@ -9,17 +7,15 @@ import java.util.List;
 public abstract class SongDecorator extends Song {
     private Song song;
 
-//    public SongDecorator(String songName, int publishedYear, String description, List<String> genres, String rating) {
-//        super(songName, publishedYear, description, genres, rating);
-//    }
     public SongDecorator(Song song){
         super(song);
+        this.song = song;
     }
 
-    @Override
-    public String getRating() {
-        return this.song.getRating();
+    public SongDecorator(String songName, int publishedYear, String description, List<String> genres, String rating) {
+        super(songName, publishedYear, description, genres, rating);
     }
+
     @Override
     public String getSongName() {
         return this.song.getSongName();
@@ -40,4 +36,8 @@ public abstract class SongDecorator extends Song {
         return this.song.getGenres();
     }
 
+    @Override
+    public String getRating() {
+        return this.song.getRating();
+    }
 }

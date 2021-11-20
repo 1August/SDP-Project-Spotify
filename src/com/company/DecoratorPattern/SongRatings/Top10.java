@@ -1,20 +1,26 @@
 package com.company.DecoratorPattern.SongRatings;
 
-import com.company.AudioFormats.IFormat;
 import com.company.DecoratorPattern.SongDecorator;
 import com.company.Entities.Song;
 
 import java.util.List;
 
 public class Top10 extends SongDecorator {
+
     public Top10(Song song) {
         super(song);
     }
 
+    public Top10(String songName, int publishedYear, String description, List<String> genres, String rating) {
+        super(songName, publishedYear, description, genres, rating);
+    }
+    String rating(){
+        return "Top-10";
+    }
 
     @Override
     public String getRating() {
-        return super.getRating()+"Top-10";
+        return super.getRating()+this.rating();
     }
 
     @Override
