@@ -89,13 +89,9 @@ public class Artist implements Observable {
 
     @Override
     public String toString() {
-        return "Artist{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", songs=" + songs +
-                ", subscriber=" + subscriber +
-                '}';
+        return  "\t Name of artist - '" + name + "\n" +
+                "\t Surname of artist -'" + surname + "\n" +
+                "\t Songs: " + songs + "\n\n" +
+                "\t Subscribers: " + subscriber + '\n';
     }
 }

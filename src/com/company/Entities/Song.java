@@ -24,6 +24,14 @@ public class Song {
         this.rating = rating;
         encode();
     }
+    public Song(String songName, int publishedYear, String description, List<String> genres, IFormat format) {
+        this.songName = songName;
+        this.publishedYear = publishedYear;
+        this.description = description;
+        this.genres = genres;
+        this.format = format;
+        encode();
+    }
 
     public Song(Song song) {
         this.song = song;
@@ -72,13 +80,11 @@ public class Song {
 
     @Override
     public String toString() {
-        return "Song{" +
-                "songName='" + getSongName() + '\'' +
-                ", publishedYear=" + getPublishedYear() +
-                ", description='" + getDescription() + '\'' +
-                ", genres=" + getGenres() +
-                ", rating='" + getRating() + '\'' +
-                ", format=" + format +
-                '}';
+        return  "\n\n\t Name of song - '" + getSongName() + "'\n" +
+                "\t Published year - " + getPublishedYear() + '\n' +
+                "\t Description - '" + getDescription() + "'\n" +
+                "\t Genres - " + getGenres() + '\n' +
+                "\t Rating - '" + getRating() + "'\n" +
+                "\t Format - " + format;
     }
 }

@@ -3,13 +3,16 @@ package com.company.FacadePattern;
 import com.company.Entities.Artist;
 import com.company.Entities.Song;
 import com.company.Entities.Subscriber;
+import com.company.ObserverPattern.Observer;
 import com.company.Repositories.ArtistRepository;
+import com.company.Repositories.SubscriberRepository;
 
 import java.util.List;
 
 public class SpotifyArtistAccount {
     private static ArtistRepository artistRepository = new ArtistRepository();
-
+//    private static SubscriberRepository subscriberRepository = new SubscriberRepository();
+//    private static Artist artist = new Artist();
 
     public SpotifyArtistAccount(String name, String surname, String email, String password){
         artistRepository.saveArtist(new Artist(name, surname, email, password));
@@ -42,5 +45,15 @@ public class SpotifyArtistAccount {
 
     public List<Song> getSongsOfArtist(String artistName, String artistSurname){
         return artistRepository.getArtistByNameAndSurname(artistName, artistSurname).getSongs();
+    }
+
+    public void addSong(String email, Song song){
+        artistRepository.getArtist(email).getSongs().add(song);
+//        artist.addSong(song);
+        System.out.println("Song - " + song.getSongName() + " added to your songlist");
+    }
+
+    public List<Observer> getSubscribersOf(String name, String surname){
+        return artistRepository.getSubscribersOf(name, surname);
     }
 }

@@ -1,13 +1,14 @@
 package com.company.Repositories;
 
 import com.company.Entities.Artist;
+import com.company.Entities.Subscriber;
+import com.company.ObserverPattern.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistRepository {
-    private static List<Artist> artists = new ArrayList<>();
-
+    static List<Artist> artists = new ArrayList<>();
 //    exists find get
 
     public Artist getArtist(String email){
@@ -33,11 +34,22 @@ public class ArtistRepository {
         return artists;
     }
 
-//    public List<Artist> getArtists() {
-//        return artists;
-//    }
+    public List<Observer> getSubscribersOf(String name, String surname){
+//        List<String> subscribers = new ArrayList<>();
+//        for (Artist artist : artists) {
+//            if (artist.getName().equals(name) && artist.getSurname().equals(surname)){
+//                for (Observer observer : artist.getSubscriber()) {
+//                    subscribers.add(observer.getInfo());
+//                }
+//                return subscribers;
+//            }
+//        }
 
-    public void setArtists(List<Artist> artists) {
-        this.artists = artists;
+        for (Artist artist : artists) {
+            if (artist.getName().equals(name) && artist.getSurname().equals(surname)){
+                return artist.getSubscriber();
+            }
+        }
+        return null;
     }
 }

@@ -32,6 +32,13 @@ public class Subscriber implements Observer {
         }
     }
 
+    @Override
+    public String getInfo() {
+        return "\t Name - '" + name + "'\n" +
+                "\t Surname - '" + surname + "'\n" +
+                "\t Email - '" + email + "'";
+    }
+
     public String getName() {
         return name;
     }

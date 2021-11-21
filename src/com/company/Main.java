@@ -12,15 +12,22 @@ import com.company.Entities.Song;
 import com.company.Entities.Subscriber;
 import com.company.FacadePattern.SpotifyArtistAccount;
 import com.company.FacadePattern.SpotifySubAccount;
+import com.company.ObserverPattern.Observer;
+import netscape.javascript.JSObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
-//    FACTORY
-//    STRATEGY
+//    TODO:
+//      change all subscribers to class observer and change artist to observable
+//      FACTORY
+//      STRATEGY
 
     static SpotifySubAccount spotifySubAccount = new SpotifySubAccount();
     static SpotifyArtistAccount spotifyArtistAccount = new SpotifyArtistAccount();
@@ -103,6 +110,57 @@ public class Main {
         }
     }
 
+//      TODO: NEED TO REPLACE WHILE LOOP
+//    public function(){
+//        Scanner scanner = new Scanner(System.in);
+//        int choose;
+//
+//        System.out.println("Welcome to your Spotify");
+//        System.out.println("------------------------------");
+//        System.out.println("1. Add song");
+//        System.out.println("2. List all my songs");
+//        System.out.println("3. List all my subscribers");
+//        System.out.println("4. List all artists");
+//        System.out.println("0. Exit");
+//
+//        choose = scanner.nextInt();
+//        switch (choose){
+//            case 1:
+//                Date dt=new Date();
+//                int year=dt.getYear();
+//                int currentYear=year+1900;
+//                System.out.println("Enter the name of the song: ");
+//                String songName = scanner.next();
+//                System.out.println("Enter the description of the song: ");
+//                String songDesc = scanner.next();
+//                System.out.println("Choose genres of the song: ");
+//                System.out.println("EDM");
+//                System.out.println("Hip-hop/Rap");
+//                System.out.println("K-Pop");
+//                System.out.println("Rock");
+//                System.out.println("Enter stop to stop entering genres");
+//                List<String> genres = new ArrayList<>();
+//                while(!scanner.next().equals("stop")){
+//                    genres.add(scanner.next());
+//                }
+//                spotifyArtistAccount.addSong(temporaryArtist.getEmail(), new Song(songName, currentYear, songDesc, genres, iFormat));
+//                function();
+//            case 2:
+//                System.out.println(spotifyArtistAccount.getArtistSongs(temporaryArtist.getEmail()));
+//                function();
+//            case 3:
+//                for (Observer subscriber : spotifyArtistAccount.getSubscribersOf(temporaryArtist.getName(), temporaryArtist.getSurname())) {
+//                    System.out.println(subscriber.getInfo());
+//                }
+//                function();
+//            case 4:
+//
+//            case 0:
+//                function();
+//        }
+//    }
+
+
     public static void main(String[] args) {
 
 
@@ -118,6 +176,11 @@ public class Main {
         songs.add(song1);
         songs.add(song2);
 
+        spotifyArtistAccount.saveArtist(new Artist("Maksat", "Artist1", "artist1@example.com", "qwerty", songs));
+        spotifyArtistAccount.saveArtist(new Artist("Akbala", "Artist2", "artist2@example.com", "qwerty"));
+
+        spotifySubAccount.saveSub(new Subscriber("n1", "ns1", "1111", "123"));
+        spotifyArtistAccount.getArtist("artist1@example.com").register(spotifySubAccount.getSub("1111"));
 
 
         song1.getFormat().encode();
@@ -147,11 +210,52 @@ public class Main {
 //        System.out.println(spotifySubAccount.);
 
         if (isLogined && choose == 1) {
+            while(true){
+                System.out.println("Welcome to your Spotify");
+                System.out.println("------------------------------");
+                System.out.println("1. Add song");
+                System.out.println("2. List all my songs");
+                System.out.println("3. List all my subscribers");
+                System.out.println("4. List all artists");
+                System.out.println("0. Exit");
 
-        } else {
-            spotifyArtistAccount.saveArtist(new Artist("Maksat", "Artist1", "artist1@example.com", "qwerty", songs));
-            spotifyArtistAccount.saveArtist(new Artist("Akbala", "Artist2", "artist2@example.com", "qwerty"));
+                choose = scanner.nextInt();
+                switch (choose){
+                    case 1:
+                        Date dt=new Date();
+                        int year=dt.getYear();
+                        int currentYear=year+1900;
+                        System.out.println("Enter the name of the song: ");
+                        String songName = scanner.next();
+                        System.out.println("Enter the description of the song: ");
+                        String songDesc = scanner.next();
+                        System.out.println("Choose genres of the song: ");
+                        System.out.println("EDM");
+                        System.out.println("Hip-hop/Rap");
+                        System.out.println("K-Pop");
+                        System.out.println("Rock");
+                        System.out.println("Enter stop to stop entering genres");
+                        List<String> genres = new ArrayList<>();
+                        while(!scanner.next().equals("stop")){
+                            genres.add(scanner.next());
+                        }
+                        spotifyArtistAccount.addSong(temporaryArtist.getEmail(), new Song(songName, currentYear, songDesc, genres, iFormat));
+                        break;
+                    case 2:
+                        System.out.println(spotifyArtistAccount.getArtistSongs(temporaryArtist.getEmail()));
+                        break;
+                    case 3:
+                        for (Observer subscriber : spotifyArtistAccount.getSubscribersOf(temporaryArtist.getName(), temporaryArtist.getSurname())) {
+                            System.out.println(subscriber.getInfo());
+                        }
+                        break;
+                    case 4:
 
+                    case 0:
+                        break;
+                }
+            }
+        } else if (isLogined && choose == 2) {
             while (true) {
                 System.out.println("Welcome to your Spotify!");
                 System.out.println("------------------------------");
@@ -173,14 +277,20 @@ public class Main {
                         spotifySubAccount.addMoney(temporarySubscriber, m);
                         break;
                     case 3:
-                        spotifySubAccount.getAllArtist();
+                        for (Artist artist : spotifySubAccount.getAllArtist()) {
+                            System.out.println(artist.toString());
+                        }
+                        System.out.println();
                         break;
                     case 4:
                         System.out.println("Enter the name of artist: ");
                         String artistName = scanner.next();
                         System.out.println("Enter the surname of artist: ");
                         String artistSurname = scanner.next();
-                        spotifySubAccount.getSongsOfArtist(artistName, artistSurname);
+                        for (Song song : spotifySubAccount.getSongsOfArtist(artistName, artistSurname)) {
+                            System.out.println(song.toString());
+                        }
+                        System.out.println();
                         break;
                     case 0:
                         break;
