@@ -1,4 +1,4 @@
-package com.company.AudioFormats;
+package com.company.AdapterPattern.AudioFormats;
 
 public interface IFormat {
     //    String formatName = "Default";

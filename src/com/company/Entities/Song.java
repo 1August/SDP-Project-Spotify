@@ -1,6 +1,6 @@
 package com.company.Entities;
 
-import com.company.AudioFormats.IFormat;
+import com.company.AdapterPattern.AudioFormats.IFormat;
 
 import java.util.ArrayList;
 import java.util.List;

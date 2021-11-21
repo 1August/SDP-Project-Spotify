@@ -5,6 +5,7 @@ import com.company.ObserverPattern.Observer;
 import java.util.List;
 
 public class Subscriber implements Observer {
+    private Subscriber subscriber;
     //    private int id;
     private String name;
     private String surname;
@@ -16,6 +17,10 @@ public class Subscriber implements Observer {
         this.surname = surname;
         this.email = email;
         this.password = password;
+    }
+
+    public Subscriber(Subscriber subscriber) {
+        this.subscriber = subscriber;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.company.AudioFormats;
+package com.company.AdapterPattern.AudioFormats;
 
 public class WAVFormat {
     private String formatName = "WAV";

@@ -1,10 +1,8 @@
 package com.company.DecoratorPattern.SongGenres;
 
-import com.company.AudioFormats.IFormat;
 import com.company.DecoratorPattern.SongDecorator;
 import com.company.Entities.Song;
 
-import java.util.Collections;
 import java.util.List;
 
 public class KPop extends SongDecorator {

@@ -1,6 +1,6 @@
-package com.company.AudioFormats;
+package com.company.AdapterPattern.AudioFormats;
 
-public class MP3Format implements IFormat{
+public class MP3Format implements IFormat {
     private String formatName = "MP3";
     private String formatCode = "6ETI-UIL2-9WAX-XHYO";
     private WAVFormat wavFormat;

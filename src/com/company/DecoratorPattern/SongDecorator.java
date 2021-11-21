@@ -1,6 +1,6 @@
 package com.company.DecoratorPattern;
 
-import com.company.AudioFormats.IFormat;
+import com.company.AdapterPattern.AudioFormats.IFormat;
 import com.company.Entities.Song;
 
 import java.util.List;
