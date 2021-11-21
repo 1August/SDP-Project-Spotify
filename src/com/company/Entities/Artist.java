@@ -10,7 +10,7 @@ public class Artist implements Observable {
     //    private int id;
     private String name;
     private String surname;
-    private String login;
+    private String email;
     private String password;
     private List<Song> songs = new ArrayList<>();
     private List<Observer> subscriber= new ArrayList<>();
@@ -35,10 +35,10 @@ public class Artist implements Observable {
         for (Observer subscriber : subscriber) subscriber.update(songs, this.name + " " + this.surname);
     }
 
-    public Artist(String name, String surname, String login, String password) {
+    public Artist(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
-        this.login = login;
+        this.email = email;
         this.password = password;
     }
 
@@ -55,10 +55,10 @@ public class Artist implements Observable {
         this.surname = surname;
     }
     public String getLogin() {
-        return login;
+        return email;
     }
     public void setLogin(String login) {
-        this.login = login;
+        this.email = login;
     }
     public String getPassword() {
         return password;
