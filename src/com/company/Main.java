@@ -1,9 +1,5 @@
 package com.company;
 
-//import com.company.AdapterPattern.AudioFormats.IFormat;
-//import com.company.AdapterPattern.AudioFormats.MP3Format;
-//import com.company.AdapterPattern.AudioFormats.WAVFormat;
-//import com.company.DecoratorPattern.SongGenres.EDM;
 import com.company.AdapterPattern.AudioFormats.IFormat;
 import com.company.AdapterPattern.AudioFormats.MP3Format;
 import com.company.AdapterPattern.AudioFormats.WAVFormat;
@@ -14,7 +10,8 @@ import com.company.DecoratorPattern.SongRatings.Top10;
 import com.company.Entities.Artist;
 import com.company.Entities.Song;
 import com.company.Entities.Subscriber;
-import com.company.FacadePattern.SpotifyAccount;
+import com.company.FacadePattern.SpotifyArtistAccount;
+import com.company.FacadePattern.SpotifySubAccount;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,68 +19,183 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        //<-- Song and artist creation, register user (Observer, Decorator, Adapter) -->
-//        List<String> genres = new ArrayList<>();
-//        WAVFormat wavFormat = new WAVFormat();
-//        IFormat iFormat = new MP3Format(wavFormat);
-//        iFormat.encode();
-//        Song song1 = new EDM(new KPop(new Top10(new Song("Song1", 2020, "sdgdsgs", genres, "", iFormat))));
-//        Song song2 = new HipHopAndRap(new Song("Song2", 2020, "sdgdsgs", genres, "", iFormat));
-//        Artist artist1 = new Artist("Maksat", "Artist1", "artist1@example.com", "qwerty");
-//        Artist artist2 = new Artist("Akbala", "Artist2", "artist2@example.com", "qwerty");
-//        Subscriber subscriber1 = new Subscriber("Subs1", "Subs1", "subs1@example.com", "qwerty");
-//        System.out.println(song1.toString());
-//        song1.getFormat().encode();
-//        System.out.println(song2.toString());
-//        artist1.register(subscriber1);
-//        artist2.register(subscriber1);
-//        artist1.addSong(song1);
-//        artist2.addSong(song2);
+//    FACTORY
+//    STRATEGY
 
-        //<-- Premium purchase (Facade) -->
-        SpotifyAccount spotifyAccount = new SpotifyAccount("User1@gmail.com", "1234");
-        System.out.println("Welcome to your Spotify. You can buy Spotify Premium!");
-        while(true) {
-            System.out.println("Subscription plans: ");
-            System.out.println("1.Spotify Premium - $4.99/month\n" +
-                    "2.Spotify Premium Duo - $6.49/month\n" +
-                    "3.Spotify Premium Family  - $7.99/month\n" +
-                    "4.Spotify Premium Student - $2.49/month\n");
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Choose purchase: ");
-            System.out.println("(if you want to top up your balance type 5)");
-            System.out.println("(if you want to stop purchase type 0)");
+    static SpotifySubAccount spotifySubAccount = new SpotifySubAccount();
+    static SpotifyArtistAccount spotifyArtistAccount = new SpotifyArtistAccount();
+    static Subscriber temporarySubscriber;
+    static Artist temporaryArtist;
 
-            int n = scanner.nextInt();
-            if (n == 0) {
-                System.out.println("Thank you! Enjoy:)");
-                break;
+    public static boolean loginAndRegisterSystem(boolean isArtist) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("1. Login");
+        System.out.println("2. Register");
+
+        int choose = scanner.nextInt();
+        if (choose == 1) {
+            System.out.println("Enter your email: ");
+            String email = scanner.next();
+            System.out.println("Enter your password");
+            String password = scanner.next();
+            if (isArtist) {
+                temporaryArtist = spotifyArtistAccount.loginArtist(email, password);
+                if (temporaryArtist == null)
+                    return false;
+                return true;
             }
-            else {
-                switch (n) {
-                    case (1):
-                        spotifyAccount.purchaseMoney(4.99);
-                        continue;
-                    case (2):
-                        spotifyAccount.purchaseMoney(6.49);
-                        continue;
-                    case (3):
-                        spotifyAccount.purchaseMoney(7.99);
-                        continue;
-                    case (4):
-                        spotifyAccount.purchaseMoney(2.49);
-                        continue;
-                    case (5):
+            temporarySubscriber = spotifySubAccount.loginSub(email, password);
+            if (temporarySubscriber == null)
+                return false;
+            return true;
+        } else {
+            System.out.println("Enter your name: ");
+            String name = scanner.next();
+            System.out.println("Enter your surname: ");
+            String surname = scanner.next();
+            System.out.println("Enter your email: ");
+            String email = scanner.next();
+            System.out.println("Enter your password");
+            String password = scanner.next();
+            if (isArtist) {
+                temporaryArtist = spotifyArtistAccount.saveArtist(new Artist(name, surname, email, password));
+                if (temporaryArtist == null)
+                    return false;
+                return true;
+            }
+            temporarySubscriber = spotifySubAccount.saveSub(new Subscriber(name, surname, email, password));
+            if (temporarySubscriber == null)
+                return false;
+            return true;
+        }
+    }
+
+    public static void buyPlans(){
+        System.out.println("Subscription plans: ");
+        System.out.println("1.Spotify Premium - $4.99/month");
+        System.out.println("2.Spotify Premium Duo - $6.49/month");
+        System.out.println("3.Spotify Premium Family  - $7.99/month");
+        System.out.println("4.Spotify Premium Student - $2.49/month");
+
+        Scanner scanner = new Scanner(System.in);
+        int choose = scanner.nextInt();
+
+        System.out.println("Choose purchase: ");
+        if (choose == 0) {
+            System.out.println("Thank you! Enjoy:)");
+        } else {
+            System.out.println(temporarySubscriber.getBalance());
+            switch (choose) {
+                case (1):
+                    spotifySubAccount.purchaseProduct(temporarySubscriber, 4.99);
+                    break;
+                case (2):
+                    spotifySubAccount.purchaseProduct(temporarySubscriber, 6.49);
+                    break;
+                case (3):
+                    spotifySubAccount.purchaseProduct(temporarySubscriber, 7.99);
+                    break;
+                case (4):
+                    spotifySubAccount.purchaseProduct(temporarySubscriber, 2.42);
+                    break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+
+//        //<-- Song and artist creation, register user (Observer, Decorator, Adapter) -->
+        WAVFormat wavFormat = new WAVFormat();
+        IFormat iFormat = new MP3Format(wavFormat);
+        iFormat.encode();
+
+        Song song1 = new EDM(new KPop(new Top10(new Song("Song1", 2020, "sdgdsgs", "", iFormat))));
+        Song song2 = new HipHopAndRap(new Song("Song2", 2020, "sdgdsgs", "", iFormat));
+
+        List<Song> songs = new ArrayList<>();
+        songs.add(song1);
+        songs.add(song2);
+
+
+
+        song1.getFormat().encode();
+
+
+//
+
+//        spotifySubAccount.saveSub(new Subscriber("M", "K", "maks", "123"));
+//        System.out.println(spotifySubAccount.loginSub("maks", "123").toString());
+
+//        System.out.println(spotifyArtistAccount.loginArtist("artist1@example.com", "qwerty").toString());
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        Scanner scanner = new Scanner(System.in);
+        int choose;
+
+        System.out.println("Are you artist?");
+        System.out.println("1. Yes");
+        System.out.println("2. No");
+
+        choose = scanner.nextInt();
+
+        boolean isLogined = loginAndRegisterSystem(choose == 1);
+
+//        System.out.println(spotifySubAccount.);
+
+        if (isLogined && choose == 1) {
+
+        } else {
+            spotifyArtistAccount.saveArtist(new Artist("Maksat", "Artist1", "artist1@example.com", "qwerty", songs));
+            spotifyArtistAccount.saveArtist(new Artist("Akbala", "Artist2", "artist2@example.com", "qwerty"));
+
+            while (true) {
+                System.out.println("Welcome to your Spotify!");
+                System.out.println("------------------------------");
+                System.out.println("1. Buy plans");
+                System.out.println("2. Top up balance");
+                System.out.println("3. List all artists");
+                System.out.println("4. List songs of artist");
+                System.out.println("0. Exit");
+
+                choose = scanner.nextInt();
+                switch (choose){
+                    case 1:
+                        buyPlans();
+                        break;
+                    case 2:
                         System.out.println("Money to add: ");
                         Scanner scanner1 = new Scanner(System.in);
                         double m = scanner1.nextDouble();
-                        spotifyAccount.addMoney(m);
-                        continue;
+                        spotifySubAccount.addMoney(temporarySubscriber, m);
+                        break;
+                    case 3:
+                        spotifySubAccount.getAllArtist();
+                        break;
+                    case 4:
+                        System.out.println("Enter the name of artist: ");
+                        String artistName = scanner.next();
+                        System.out.println("Enter the surname of artist: ");
+                        String artistSurname = scanner.next();
+                        spotifySubAccount.getSongsOfArtist(artistName, artistSurname);
+                        break;
+                    case 0:
+                        break;
                 }
+
+//                System.out.println("Welcome to your Spotify. You can buy Spotify Premium!");
+//                System.out.println("(if you want to top up your balance type 5)");
+//                System.out.println("(if you want to stop purchase type 0)");
+
+//                choose = scanner.nextInt();
+//                boolean result = buyPlans();
+//                if (!result) break;
+//                else continue;
             }
         }
-
     }
 }
 

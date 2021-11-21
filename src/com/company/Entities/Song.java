@@ -15,11 +15,11 @@ public class Song {
     private String rating;
     private IFormat format;
 
-    public Song(String songName, int publishedYear, String description, List<String> genres, String rating, IFormat format) {
+    public Song(String songName, int publishedYear, String description, String rating, IFormat format) {
         this.songName = songName;
         this.publishedYear = publishedYear;
         this.description = description;
-        this.genres = genres;
+        this.genres = new ArrayList<>();
         this.format = format;
         this.rating = rating;
         encode();
@@ -76,10 +76,9 @@ public class Song {
                 "songName='" + getSongName() + '\'' +
                 ", publishedYear=" + getPublishedYear() +
                 ", description='" + getDescription() + '\'' +
-                ", genres=" + getGenres()+
-                ", formatName=" + format +
-                ", Rating=" + getRating() +
-             //  ", formatCode=" + format.getFormatCode() +
+                ", genres=" + getGenres() +
+                ", rating='" + getRating() + '\'' +
+                ", format=" + format +
                 '}';
     }
 }

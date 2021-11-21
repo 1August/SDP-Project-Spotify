@@ -10,7 +10,6 @@ public class EDM extends SongDecorator {
     List<String> genres = super.getGenres();
     public EDM(Song song) {
         super(song);
-
     }
 
     @Override

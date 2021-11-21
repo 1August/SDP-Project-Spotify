@@ -13,9 +13,9 @@ public class Artist implements Observable {
     private String email;
     private String password;
     private List<Song> songs = new ArrayList<>();
-    private List<Observer> subscriber= new ArrayList<>();
+    private List<Observer> subscriber = new ArrayList<>();
 
-    public void addSong(Song song){
+    public void addSong(Song song) {
         songs.add(song);
         notifyObserver();
     }
@@ -42,6 +42,14 @@ public class Artist implements Observable {
         this.password = password;
     }
 
+    public Artist(String name, String surname, String email, String password, List<Song> songs) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.songs = songs;
+    }
+
     public String getName() {
         return name;
     }
@@ -53,12 +61,6 @@ public class Artist implements Observable {
     }
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-    public String getLogin() {
-        return email;
-    }
-    public void setLogin(String login) {
-        this.email = login;
     }
     public String getPassword() {
         return password;
@@ -77,5 +79,23 @@ public class Artist implements Observable {
     }
     public void setSubscriber(List<Observer> subscriber) {
         this.subscriber = subscriber;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", songs=" + songs +
+                ", subscriber=" + subscriber +
+                '}';
     }
 }

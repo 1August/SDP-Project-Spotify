@@ -12,7 +12,7 @@ public class Top5 extends SongDecorator {
 
     @Override
     public String getRating() {
-        return super.getRating()+"Top-5";
+        return super.getRating() + "Top-5";
     }
 
     @Override

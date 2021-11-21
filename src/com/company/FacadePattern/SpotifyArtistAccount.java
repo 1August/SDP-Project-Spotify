@@ -1,42 +1,46 @@
 package com.company.FacadePattern;
 
-public class SpotifyAccount {
-    private String email;
-    private String password;
+import com.company.Entities.Artist;
+import com.company.Entities.Song;
+import com.company.Entities.Subscriber;
+import com.company.Repositories.ArtistRepository;
 
-    AccountEmailChecker emailChecker;
-    AccountPasswordChecker passwordChecker;
-    AccountBalanceChecker balanceChecker;
+import java.util.List;
 
-    public SpotifyAccount(String newEmail, String newPassword){
-        email = newEmail;
-        password = newPassword;
+public class SpotifyArtistAccount {
+    private static ArtistRepository artistRepository = new ArtistRepository();
 
-        emailChecker = new AccountEmailChecker();
-        passwordChecker = new AccountPasswordChecker();
-        balanceChecker = new AccountBalanceChecker();
+
+    public SpotifyArtistAccount(String name, String surname, String email, String password){
+        artistRepository.saveArtist(new Artist(name, surname, email, password));
     }
 
-    public String getEmail(){return email;}
-    public String getPassword(){return password;}
+    public SpotifyArtistAccount() {
 
-    public void purchaseMoney(double moneyToBuy){
-        if(emailChecker.accountEmailValid(getEmail())
-                && passwordChecker.accountPasswordCorrect(getPassword())
-                && balanceChecker.haveEnoughMoney(moneyToBuy)){
-            System.out.println("Purchase complete\n");
-        }
-        else{
-            System.out.println("Purchase failed\n");
-        }
     }
-    public void addMoney(double moneyToAdd){
-        if(emailChecker.accountEmailValid(getEmail())&&passwordChecker.accountPasswordCorrect(getPassword())){
-            balanceChecker.addMoneyToAccount(moneyToAdd);
-            System.out.println("Transaction complete\n");
-        }
-        else{
-            System.out.println("Transaction failed\n");
-        }
+
+    public Artist getArtist(String email){
+        return artistRepository.getArtist(email);
+    }
+
+    public Artist loginArtist(String email, String password){
+        return artistRepository.loginArtist(email, password);
+    }
+
+    public List<Song> getArtistSongs(String email){
+        return artistRepository.getArtist(email).getSongs();
+    }
+
+    public Artist saveArtist(Artist artist){
+        artistRepository.saveArtist(artist);
+        return artistRepository.getArtist(artist.getEmail());
+    }
+
+    public List<Artist> getAllArtist(){
+        return artistRepository.getAllArtist();
+    }
+
+    public List<Song> getSongsOfArtist(String artistName, String artistSurname){
+        return artistRepository.getArtistByNameAndSurname(artistName, artistSurname).getSongs();
     }
 }

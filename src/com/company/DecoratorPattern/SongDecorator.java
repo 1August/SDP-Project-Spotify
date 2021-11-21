@@ -13,8 +13,8 @@ public abstract class SongDecorator extends Song {
         this.song = song;
     }
 
-    public SongDecorator(String songName, int publishedYear, String description, List<String> genres, String rating, IFormat format) {
-        super(songName, publishedYear, description, genres, rating, format);
+    public SongDecorator(String songName, int publishedYear, String description, String rating, IFormat format) {
+        super(songName, publishedYear, description, rating, format);
     }
 
     @Override

@@ -31,5 +31,4 @@ public class Rock extends SongDecorator {
         genres.add("Rock");
         return genres;
     }
-
 }
