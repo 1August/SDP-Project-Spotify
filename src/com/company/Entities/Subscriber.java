@@ -1,16 +1,29 @@
 package com.company.Entities;
 
+import com.company.FactoryPattern.SpotifyElements;
 import com.company.ObserverPattern.Observer;
 
 import java.util.List;
 
-public class Subscriber implements Observer {
+public class Subscriber implements Observer, SpotifyElements {
     //    private int id;
     private String name;
     private String surname;
     private String email;
     private String password;
     private double balance;
+
+//    public Subscriber() {
+//
+//    }
+
+    public Subscriber(Subscriber subscriber) {
+        this.name = subscriber.name;
+        this.surname = subscriber.surname;
+        this.email = subscriber.email;
+        this.password = subscriber.password;
+        this.balance = 0;
+    }
 
     public Subscriber(String name, String surname, String email, String password) {
         this.name = name;
@@ -20,9 +33,6 @@ public class Subscriber implements Observer {
         this.balance = 0;
     }
 
-    public Subscriber(Subscriber subscriber) {
-        new Subscriber(getName(), subscriber.getSurname(), subscriber.getEmail(), subscriber.getPassword());
-    }
 
     @Override
     public void update(List<Song> songs, String artistName) {
@@ -68,6 +78,17 @@ public class Subscriber implements Observer {
 
     @Override
     public String toString() {
+        return "Subscriber{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
+
+    @Override
+    public String showInfo(){
         return "Subscriber{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +

@@ -1,12 +1,13 @@
 package com.company.Entities;
 
+import com.company.FactoryPattern.SpotifyElements;
 import com.company.ObserverPattern.Observable;
 import com.company.ObserverPattern.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Artist implements Observable {
+public class Artist implements Observable, SpotifyElements {
     //    private int id;
     private String name;
     private String surname;
@@ -35,6 +36,17 @@ public class Artist implements Observable {
         for (Observer subscriber : subscriber) subscriber.update(songs, this.name + " " + this.surname);
     }
 
+//    public Artist() {
+//
+//    }
+
+    public Artist(Artist artist) {
+        this.name = artist.name;
+        this.surname = artist.surname;
+        this.email = artist.email;
+        this.password = artist.password;
+    }
+
     public Artist(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
@@ -49,6 +61,8 @@ public class Artist implements Observable {
         this.password = password;
         this.songs = songs;
     }
+
+
 
     public String getName() {
         return name;
@@ -89,6 +103,18 @@ public class Artist implements Observable {
 
     @Override
     public String toString() {
+        return "Artist{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", songs=" + songs +
+                ", subscriber=" + subscriber +
+                '}';
+    }
+
+    @Override
+    public String showInfo(){
         return  "\t Name of artist - '" + name + "\n" +
                 "\t Surname of artist -'" + surname + "\n" +
                 "\t Songs: " + songs + "\n\n" +

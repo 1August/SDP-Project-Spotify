@@ -12,22 +12,23 @@ import com.company.Entities.Song;
 import com.company.Entities.Subscriber;
 import com.company.FacadePattern.SpotifyArtistAccount;
 import com.company.FacadePattern.SpotifySubAccount;
+import com.company.FactoryPattern.ArtistFactory;
+import com.company.FactoryPattern.SongFactory;
+import com.company.FactoryPattern.SpotifyFactory;
+import com.company.FactoryPattern.SubscriberFactory;
 import com.company.ObserverPattern.Observer;
-import netscape.javascript.JSObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Main {
 
 //    TODO:
-//      change all subscribers to class observer and change artist to observable
-//      FACTORY
-//      STRATEGY
+//      🔳 Сhange all subscribers to class observer and change artist to observable
+//      🔳 FACTORY
+//      🔳 STRATEGY
 
     static SpotifySubAccount spotifySubAccount = new SpotifySubAccount();
     static SpotifyArtistAccount spotifyArtistAccount = new SpotifyArtistAccount();
@@ -40,7 +41,11 @@ public class Main {
 //Login and registration system (methods)
 
     public static boolean loginAndRegisterSystem(boolean isArtist) {
-        Scanner scanner = new Scanner(System.in);
+        SpotifyFactory spotifyArtistFactory = new ArtistFactory();
+        SpotifyFactory spotifySubscriberFactory = new SubscriberFactory();
+//        SpotifyFactory spotifySongFactory = new SongFactory();
+
+        Scanner scanner;
          scanner = new Scanner(System.in);
 
         System.out.println("1. Login");
@@ -62,7 +67,7 @@ public class Main {
             if (temporarySubscriber == null)
                 return false;
             return true;
-        } else if(choose==2) {
+        } else if (choose == 2) {
             System.out.println("Enter your name: ");
             String name = scanner.next();
             System.out.println("Enter your surname: ");
@@ -72,6 +77,8 @@ public class Main {
             System.out.println("Enter your password");
             String password = scanner.next();
             if (isArtist) {
+//                temporaryArtist = (Artist) spotifyArtistFactory.createSpotifyElement();
+//                temporaryArtist
                 temporaryArtist = spotifyArtistAccount.saveArtist(new Artist(name, surname, email, password));
                 if (temporaryArtist == null)
                     return false;
@@ -193,9 +200,8 @@ public class Main {
                 spotifySubAccount.addMoney(temporarySubscriber, m);
                 subscriberServices();
             case 3:
-                for (Artist artist : spotifySubAccount.getAllArtist()) {
-                    System.out.println(artist.toString());
-                }
+                for (Artist artist : spotifySubAccount.getAllArtist())
+                    System.out.println(artist.showInfo());
                 System.out.println();
                 subscriberServices();
             case 4:
@@ -203,9 +209,8 @@ public class Main {
                 String artistName = scanner.next();
                 System.out.println("Enter the surname of artist: ");
                 String artistSurname = scanner.next();
-                for (Song song : spotifySubAccount.getSongsOfArtist(artistName, artistSurname)) {
-                    System.out.println(song.toString());
-                }
+                for (Song song : spotifySubAccount.getSongsOfArtist(artistName, artistSurname))
+                    System.out.println(song.showInfo());
                 System.out.println();
                 subscriberServices();
             case 0:
@@ -216,6 +221,8 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+//        SpotifyFactory spotifySongFactory = new SongFactory();
 
 //        //<-- Song and artist creation, register user (Observer, Decorator, Adapter) -->
         iFormat.encode();
@@ -236,6 +243,7 @@ public class Main {
         song1.getFormat().encode();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         while (true) {
             Scanner scanner = new Scanner(System.in);
             int choose;
@@ -251,14 +259,12 @@ public class Main {
             }
             boolean isLogined = loginAndRegisterSystem(choose == 1);
 
-            if (isLogined && choose == 1) {
+            if (isLogined && choose == 1)
                 artistServices();
-            } else if (isLogined && choose == 2) {
+            else if (isLogined && choose == 2)
                 subscriberServices();
-            } else {
+            else
                 System.out.println("Error! Invalid login or option choice. Please try again");
-                continue;
-            }
         }
     }
 }

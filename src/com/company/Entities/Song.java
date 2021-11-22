@@ -1,19 +1,33 @@
 package com.company.Entities;
 
 import com.company.AdapterPattern.AudioFormats.IFormat;
+import com.company.FactoryPattern.SpotifyElements;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Song {
-    private Song song;
+public class Song implements SpotifyElements {
     //    private int id;
     private String songName;
     private int publishedYear;
     private String description;
-    private List<String> genres = new ArrayList<>();
+    private List<String> genres;
     private String rating;
     private IFormat format;
+
+//    public Song() {
+//
+//    }
+
+    public Song(Song song) {
+        this.songName = song.songName;
+        this.publishedYear = song.publishedYear;
+        this.description = song.description;
+        this.genres = new ArrayList<>();
+        this.format = song.format;
+        this.rating = song.rating;
+        encode();
+    }
 
     public Song(String songName, int publishedYear, String description, String rating, IFormat format) {
         this.songName = songName;
@@ -24,6 +38,7 @@ public class Song {
         this.rating = rating;
         encode();
     }
+
     public Song(String songName, int publishedYear, String description, List<String> genres, IFormat format) {
         this.songName = songName;
         this.publishedYear = publishedYear;
@@ -33,9 +48,14 @@ public class Song {
         encode();
     }
 
-    public Song(Song song) {
-        this.song = song;
-    }
+ /*   public void groupOfSetters(String songName, int publishedYear, String description, List<String> genres, String rating, IFormat format){
+        setSongName(songName);
+        setPublishedYear(publishedYear);
+        setDescription(description);
+        setFormat(format);
+        setGenres(genres);
+        setRating(rating);
+    }*/
 
     private void encode(){
         format.encode();
@@ -80,7 +100,19 @@ public class Song {
 
     @Override
     public String toString() {
-        return  "\n\n\t Name of song - '" + getSongName() + "'\n" +
+        return "Song{" +
+                " songName='" + songName + '\'' +
+                ", publishedYear=" + publishedYear +
+                ", description='" + description + '\'' +
+                ", genres=" + genres +
+                ", rating='" + rating + '\'' +
+                ", format=" + format +
+                '}';
+    }
+
+    @Override
+    public String showInfo(){
+        return "\n\n\t Name of song - '" + getSongName() + "'\n" +
                 "\t Published year - " + getPublishedYear() + '\n' +
                 "\t Description - '" + getDescription() + "'\n" +
                 "\t Genres - " + getGenres() + '\n' +
