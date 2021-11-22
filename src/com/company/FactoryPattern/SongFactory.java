@@ -3,6 +3,7 @@ package com.company.FactoryPattern;
 import com.company.Entities.Artist;
 import com.company.Entities.Song;
 import com.company.Entities.Subscriber;
+import com.company.FacadePattern.SpotifyArtistAccount;
 
 public class SongFactory implements SpotifyFactory{
 //    @Override
@@ -10,9 +11,12 @@ public class SongFactory implements SpotifyFactory{
 //        return new Song();
 //    }
 
+    SpotifyArtistAccount spotifyArtistAccount = new SpotifyArtistAccount();
+
     @Override
-    public SpotifyElements createSpotifyElement(Song song) {
-        return new Song(song);
+    public SpotifyElements createSpotifyElement(String artistEmail, Song song) {
+        spotifyArtistAccount.addSong(artistEmail, song);
+        return song;
     }
 
     @Override

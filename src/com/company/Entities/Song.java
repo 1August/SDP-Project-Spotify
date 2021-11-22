@@ -1,6 +1,7 @@
 package com.company.Entities;
 
 import com.company.AdapterPattern.AudioFormats.IFormat;
+import com.company.AdapterPattern.AudioFormats.MP3Format;
 import com.company.FactoryPattern.SpotifyElements;
 
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class Song implements SpotifyElements {
                 ", description='" + description + '\'' +
                 ", genres=" + genres +
                 ", rating='" + rating + '\'' +
-                ", format=" + format +
+                ", format=" + format.getFormatInfo() +
                 '}';
     }
 
@@ -117,6 +118,6 @@ public class Song implements SpotifyElements {
                 "\t Description - '" + getDescription() + "'\n" +
                 "\t Genres - " + getGenres() + '\n' +
                 "\t Rating - '" + getRating() + "'\n" +
-                "\t Format - " + format;
+                "\t Format - " + format.getFormatInfo();
     }
 }

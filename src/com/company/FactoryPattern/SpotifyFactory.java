@@ -17,7 +17,7 @@ public interface SpotifyFactory {
 //        return result;
 //    }
 //    SpotifyElements createSpotifyElement();
-    SpotifyElements createSpotifyElement(Song song);
+    SpotifyElements createSpotifyElement(String artistEmail, Song song);
     SpotifyElements createSpotifyElement(Artist artist);
     SpotifyElements createSpotifyElement(Subscriber subscriber);
 }

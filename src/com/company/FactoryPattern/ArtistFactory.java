@@ -3,21 +3,21 @@ package com.company.FactoryPattern;
 import com.company.Entities.Artist;
 import com.company.Entities.Song;
 import com.company.Entities.Subscriber;
+import com.company.Repositories.ArtistRepository;
 
 public class ArtistFactory implements SpotifyFactory{
-//    @Override
-//    public SpotifyElements createSpotifyElement() {
-//        return new Artist();
-//    }
+
+    ArtistRepository artistRepository = new ArtistRepository();
 
     @Override
-    public SpotifyElements createSpotifyElement(Song song) {
+    public SpotifyElements createSpotifyElement(String artistEmail, Song song) {
         return null;
     }
 
     @Override
     public SpotifyElements createSpotifyElement(Artist artist) {
-        return new Artist(artist);
+        artistRepository.saveArtist(artist);
+        return artist;
     }
 
     @Override

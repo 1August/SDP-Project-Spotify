@@ -1,18 +1,17 @@
 package com.company.AdapterPattern.AudioFormats;
 
-public class MP3Format implements IFormat {
-    private String formatName = "MP3";
+public class M4AFormat implements IFormat{
+    private String formatName = "M4A";
     private String formatCode;
-//    private WAVFormat wavFormat;
 
-    public MP3Format(WAVFormat wavFormat) {
+    public M4AFormat(WAVFormat wavFormat) {
         formatCode = wavFormat.getFormatCode();
         encode();
     }
 
     @Override
     public String encode() {
-        formatCode += "-6ETI-UIL2-9WAX-XHYO";
+        formatCode += "-TTD8-4H85-8LCJ-4VCF";
         return formatCode;
     }
 
@@ -20,9 +19,4 @@ public class MP3Format implements IFormat {
     public String getFormatInfo() {
         return formatName;
     }
-
-    public String getFormatName() {
-        return formatName;
-    }
-   
 }
