@@ -24,6 +24,11 @@ public class AccountBalanceChecker {
     }
 
     public void decreaseMoney(double moneyToPurchase){
+        if(subscriber.getBalance()<moneyToPurchase){
+            System.out.println("You do not have enough money to buy plan.");
+            System.out.println("Please, top up your balance.");
+            return;
+        }
         subscriber.setBalance(subscriber.getBalance() - moneyToPurchase);
         System.out.println("You successfully purchased");
         System.out.println("Your current balance: $" + subscriber.getBalance());
