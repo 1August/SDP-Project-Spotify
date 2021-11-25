@@ -12,7 +12,7 @@ public class Top50 extends SongDecorator {
 
     @Override
     public String getRating() {
-        return super.getRating()+"Top-50";
+        return super.getRating() + "Top-50";
     }
 
     @Override
@@ -34,5 +34,4 @@ public class Top50 extends SongDecorator {
     public List<String> getGenres() {
         return super.getGenres();
     }
-
 }

@@ -4,17 +4,18 @@ import com.company.AdapterPattern.AudioFormats.IFormat;
 import com.company.AdapterPattern.AudioFormats.M4AFormat;
 import com.company.AdapterPattern.AudioFormats.MP3Format;
 import com.company.AdapterPattern.AudioFormats.WAVFormat;
-import com.company.DecoratorPattern.SongGenres.EDM;
-import com.company.DecoratorPattern.SongGenres.HipHopAndRap;
-import com.company.DecoratorPattern.SongGenres.KPop;
+import com.company.DecoratorPattern.SongGenres.*;
 import com.company.DecoratorPattern.SongRatings.Top10;
+import com.company.DecoratorPattern.SongRatings.Top100;
+import com.company.DecoratorPattern.SongRatings.Top50;
 import com.company.Entities.Artist;
-import com.company.Entities.Song;
 import com.company.Entities.Subscriber;
+import com.company.Entities.Song;
 import com.company.FacadePattern.SpotifyArtistAccount;
 import com.company.FacadePattern.SpotifySubAccount;
 import com.company.FactoryPattern.*;
 import com.company.ObserverPattern.Observer;
+import com.company.StrategyPattern.Premium;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,17 +25,16 @@ import java.util.Scanner;
 public class Main {
 
 //    TODO:
-//      🔳 Сhange all subscribers to class observer and change artist to observable
+//      ✅ Сhange all subscribers to class observer and change artist to observable
 //      ✅ FACTORY
-//      🔳 STRATEGY
-//      🔳 Add repo for subs to add liked songs
-//      🔳 Beautify iformat (or maybe Song) toString()
+//      ✅ STRATEGY
+//      ✅ Add repo for subs to add liked songs
+//      ✅ Beautify iformat (or maybe Song) toString()
 
     static SpotifySubAccount spotifySubAccount = new SpotifySubAccount();
     static SpotifyArtistAccount spotifyArtistAccount = new SpotifyArtistAccount();
     static Subscriber temporarySubscriber;
     static Artist temporaryArtist;
-
     static SpotifyFactory factory = new ArtistFactory();
 
     static WAVFormat wavFormat = new WAVFormat();
@@ -77,15 +77,19 @@ public class Main {
                 return true;
             }
             temporarySubscriber = spotifySubAccount.saveSub(new Subscriber(name, surname, email, password));
-            if (temporarySubscriber == null) return false;
-            return true;
+            return temporarySubscriber != null;
         }
-            return false;
+        return false;
     }
 
 //    Spotify premium purchase
 
     public static void buyPlans(){
+
+        if(temporarySubscriber.isHavePremium()){
+            System.out.println("You already have premium");
+            return;
+        }
         System.out.println("Subscription plans: ");
         System.out.println("1.Spotify Premium - $4.99/month");
         System.out.println("2.Spotify Premium Duo - $6.49/month");
@@ -103,15 +107,31 @@ public class Main {
             switch (choose) {
                 case (1):
                     spotifySubAccount.purchaseProduct(temporarySubscriber, 4.99);
+                    if(temporarySubscriber.isHavePremium()){
+                        temporarySubscriber.setPremiumBehaviour(new Premium());
+                        System.out.println("Now you have premium");
+                    }
                     break;
                 case (2):
                     spotifySubAccount.purchaseProduct(temporarySubscriber, 6.49);
+                    if(temporarySubscriber.isHavePremium()){
+                        temporarySubscriber.setPremiumBehaviour(new Premium());
+                        System.out.println("Now you have premium");
+                    }
                     break;
                 case (3):
                     spotifySubAccount.purchaseProduct(temporarySubscriber, 7.99);
+                    if(temporarySubscriber.isHavePremium()){
+                        temporarySubscriber.setPremiumBehaviour(new Premium());
+                        System.out.println("Now you have premium");
+                    }
                     break;
                 case (4):
                     spotifySubAccount.purchaseProduct(temporarySubscriber, 2.42);
+                    if(temporarySubscriber.isHavePremium()){
+                        temporarySubscriber.setPremiumBehaviour(new Premium());
+                        System.out.println("Now you have premium");
+                    }
                     break;
             }
         }
@@ -134,7 +154,7 @@ public class Main {
             case 1:
                 Date dt=new Date();
                 int year = dt.getYear();
-                int currentYear = year+1900;
+                int currentYear = year + 1900;
                 System.out.println("Enter the name of the song: ");
                 String songName = scanner.next();
                 System.out.println("Enter the description of the song: ");
@@ -146,24 +166,31 @@ public class Main {
                 System.out.println("Rock");
                 System.out.println("Enter 'stop' to stop entering genres");
                 List<String> genres = new ArrayList<>();
-                while(!scanner.next().equals("stop"))
-                    genres.add(scanner.next());
+                String genre = scanner.next();
+                while(!genre.equals("stop")){
+                    genres.add(genre);
+                    genre = scanner.next();
+                }
                 spotifyArtistAccount.addSong(temporaryArtist.getEmail(), new Song(songName, currentYear, songDesc, genres, iFormat));
                 artistServices();
+                break;
             case 2:
                 System.out.println(spotifyArtistAccount.getArtistSongs(temporaryArtist.getEmail()));
                 artistServices();
+                break;
             case 3:
                 for (Observer subscriber : spotifyArtistAccount.getSubscribersOf(temporaryArtist.getName(), temporaryArtist.getSurname()))
                     System.out.println(subscriber.getInfo());
                 artistServices();
+                break;
             case 4:
                 for (Artist artist : spotifySubAccount.getAllArtist())
                     System.out.println(artist.showInfo());
                 System.out.println();
                 artistServices();
+                break;
             case 0:
-                return;
+                break;
         }
     }
 
@@ -178,6 +205,8 @@ public class Main {
         System.out.println("2. Top up balance");
         System.out.println("3. List all artists");
         System.out.println("4. List songs of artist");
+        System.out.println("5. Add song to my playlist");
+        System.out.println("6. Show my playlist");
         System.out.println("0. Exit");
 
         int choose = scanner.nextInt();
@@ -185,54 +214,93 @@ public class Main {
             case 1:
                 buyPlans();
                 subscriberServices();
+                break;
             case 2:
                 System.out.println("Money to add: ");
                 Scanner scanner1 = new Scanner(System.in);
                 double m = scanner1.nextDouble();
                 spotifySubAccount.addMoney(temporarySubscriber, m);
                 subscriberServices();
+                break;
             case 3:
                 for (Artist artist : spotifySubAccount.getAllArtist())
                     System.out.println(artist.showInfo());
                 System.out.println();
                 subscriberServices();
+                break;
             case 4:
                 System.out.println("Enter the name of artist: ");
                 String artistName = scanner.next();
                 System.out.println("Enter the surname of artist: ");
                 String artistSurname = scanner.next();
+// IF ARTIST EXISTS
                 for (Song song : spotifySubAccount.getSongsOfArtist(artistName, artistSurname))
                     System.out.println(song.showInfo());
                 System.out.println();
                 subscriberServices();
+                break;
+            case 5:
+                System.out.println("Enter the name of the song: ");
+                String songName = scanner.next();
+                System.out.println("Enter the name of artist: ");
+                String songArtistName = scanner.next();
+                System.out.println("Enter the surname of artist: ");
+                String songArtistSurname = scanner.next();
+                spotifySubAccount.addSongToPlaylist(temporarySubscriber.getEmail(), songName, songArtistName, songArtistSurname);
+                subscriberServices();
+                break;
+            case 6:
+                System.out.println("Your playlist: ");
+                System.out.println(temporarySubscriber.getSongs());
+                subscriberServices();
+                break;
             case 0:
                 break;
         }
     }
 
-
     public static void main(String[] args) {
 
-//        SpotifyFactory spotifySongFactory = new SongFactory();
-//        //<-- Song and artist creation, register user (Observer, Decorator, Adapter) -->
-
-
         //        Creating artists by factory
-        SpotifyElements spotifyArtist1 = factory.createSpotifyElement(new Artist("Maksat", "Artist1", "artist1@example.com", "qwerty"));
-        SpotifyElements spotifyArtist2 = factory.createSpotifyElement(new Artist("Akbala", "Artist2", "artist2@example.com", "qwerty"));
+        Song song1 = new EDM(new KPop(new Top10(new Song("Song1", 2020, "description1", "", iFormat))));
+        Song song2 = new HipHopAndRap(new Song("Song2", 2020, "description2", "", iFormat));
+        Song song3 = new Jazz(new Rock(new Top100(new Song("Song3", 2020, "description3", "", iFormat))));
+        Song song4 = new Rock(new Alternative(new Top50(new Song("Song4", 2018, "description4", "", iFormat))));
+        Song song5 = new KPop(new Top10(new Song("Song5", 2018, "description5", "", iFormat)));
+        Song song6 = new HipHopAndRap(new Rock(new Top50(new Song("Song6", 2021, "description6", "", iFormat))));
+        Song song7 = new Soul(new Top10(new Song("Song7", 2021, "description7", "", iFormat)));
+        Song song8 = new EDM(new Alternative(new Top50(new Song("Song8", 2020, "description8", "", iFormat))));
+        Song song9 = new EDM(new Rock(new Top100(new Song("Song9", 2019, "description9", "", iFormat))));
+
+        SpotifyElements spotifyArtist1 = factory.createSpotifyElement(new Artist("Maksat", "Kuanysh", "maksat@example.com", "qwerty"));
+        SpotifyElements spotifyArtist2 = factory.createSpotifyElement(new Artist("Akbala", "Tleugaliyeva", "akbala@example.com", "qwerty"));
+        SpotifyElements spotifyArtist3 = factory.createSpotifyElement(new Artist("Olzhas", "Otep", "olzhas@example.com", "qwerty"));
 
         //        Creating songs by factory
         factory = new SongFactory();
-        factory.createSpotifyElement(((Artist) spotifyArtist1).getEmail(), new EDM(new KPop(new Top10(new Song("Song1", 2020, "sdgdsgs", "", iFormat)))));
+        factory.createSpotifyElement(((Artist) spotifyArtist1).getEmail(), song3);
+        factory.createSpotifyElement(((Artist) spotifyArtist2).getEmail(), song9);
+        factory.createSpotifyElement(((Artist) spotifyArtist1).getEmail(), song1);
+        factory.createSpotifyElement(((Artist) spotifyArtist3).getEmail(), song5);
+        factory.createSpotifyElement(((Artist) spotifyArtist3).getEmail(), song7);
+        factory.createSpotifyElement(((Artist) spotifyArtist2).getEmail(), song4);
+        factory.createSpotifyElement(((Artist) spotifyArtist3).getEmail(), song4);
+        factory.createSpotifyElement(((Artist) spotifyArtist2).getEmail(), song7);
+        factory.createSpotifyElement(((Artist) spotifyArtist2).getEmail(), song6);
+
         iFormat = new M4AFormat(wavFormat);
-        factory.createSpotifyElement(((Artist) spotifyArtist2).getEmail(), new HipHopAndRap(new Song("Song2", 2020, "sdgdsgs", "", iFormat)));
+        factory.createSpotifyElement(((Artist) spotifyArtist2).getEmail(), song2);
+        factory.createSpotifyElement(((Artist) spotifyArtist3).getEmail(), song5);
+        factory.createSpotifyElement(((Artist) spotifyArtist1).getEmail(), song8);
+        factory.createSpotifyElement(((Artist) spotifyArtist3).getEmail(), song9);
 
         //        Creating subscribers by factory
         factory = new SubscriberFactory();
         SpotifyElements spotifySub1 = factory.createSpotifyElement(new Subscriber("1111", "1111", "1111", "1111"));
-        spotifyArtistAccount.getArtist("artist1@example.com").register((Observer) spotifySub1);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        spotifyArtistAccount.getArtist("maksat@example.com").register((Observer) spotifySub1);
+        spotifyArtistAccount.getArtist("olzhas@example.com").register((Observer) spotifySub1);
+        spotifyArtistAccount.getArtist("akbala@example.com").register((Observer) spotifySub1);
+        spotifySubAccount.saveSub((Subscriber) spotifySub1);
 
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -247,8 +315,8 @@ public class Main {
                 System.out.println("Invalid input!");
                 continue;
             }
-            boolean isLogined = loginAndRegisterSystem(choose == 1);
 
+            boolean isLogined = loginAndRegisterSystem(choose == 1);
             if (isLogined && choose == 1)
                 artistServices();
             else if (isLogined && choose == 2)
@@ -258,4 +326,7 @@ public class Main {
         }
     }
 }
+
+
+
 

@@ -6,18 +6,13 @@ import com.company.Entities.Song;
 import java.util.List;
 
 public class Top10 extends SongDecorator {
-
     public Top10(Song song) {
         super(song);
     }
 
-    String rating(){
-        return "Top-10";
-    }
-
     @Override
     public String getRating() {
-        return super.getRating()+this.rating();
+        return super.getRating() + "Top-10";
     }
 
     @Override
@@ -39,5 +34,4 @@ public class Top10 extends SongDecorator {
     public List<String> getGenres() {
         return super.getGenres();
     }
-
 }

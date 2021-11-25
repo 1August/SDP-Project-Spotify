@@ -1,8 +1,8 @@
 package com.company.FacadePattern;
 
 import com.company.Entities.Artist;
-import com.company.Entities.Song;
 import com.company.Entities.Subscriber;
+import com.company.Entities.Song;
 import com.company.Repositories.ArtistRepository;
 import com.company.Repositories.SubscriberRepository;
 
@@ -28,11 +28,10 @@ public class SpotifySubAccount {
         return subscriberRepository.loginSubscriber(subscriber.getEmail(), subscriber.getPassword());
     }
 
-//  public getArtists()
-
     public void purchaseProduct(Subscriber subscriber, double money){
         balanceChecker.setSubscriber(subscriber);
         balanceChecker.decreaseMoney(money);
+
     }
 
     public void addMoney(Subscriber subscriber, double money){
@@ -46,5 +45,14 @@ public class SpotifySubAccount {
 
     public List<Song> getSongsOfArtist(String artistName, String artistSurname){
         return artistRepository.getArtistByNameAndSurname(artistName, artistSurname).getSongs();
+    }
+    public List<Song> getSubscriberSongs(String email){
+        return getSub(email).getSongs();
+    }
+
+    public void addSongToPlaylist(String email, String songName, String artistName, String artistSurname){
+        for (Song song : artistRepository.getArtistByNameAndSurname(artistName, artistSurname).getSongs()) {
+            if (song.getSongName().equals(songName)) subscriberRepository.getSubs(email).addSongToPlaylist(song);
+        }
     }
 }

@@ -1,26 +1,16 @@
 package com.company.FacadePattern;
 
 import com.company.Entities.Subscriber;
+import com.company.StrategyPattern.Premium;
+import com.company.StrategyPattern.PremiumBehaviour;
 
 public class AccountBalanceChecker {
     private Subscriber subscriber;
-
+    private PremiumBehaviour premiumBehaviour = new Premium();
     public AccountBalanceChecker(){}
 
     public AccountBalanceChecker(Subscriber subscriber) {
         this.subscriber = subscriber;
-    }
-
-    public boolean haveEnoughMoney(double purchaseMoney) {
-        if(purchaseMoney > subscriber.getBalance()){
-            System.out.println("You do not have enough money");
-            System.out.println("Current balance: $" + subscriber.getBalance());
-            return false;
-        }
-        decreaseMoney(purchaseMoney);
-        System.out.println("Purchase completed successfully! Enjoy:)");
-        System.out.println("Your current balance: $" + subscriber.getBalance());
-        return true;
     }
 
     public void decreaseMoney(double moneyToPurchase){
@@ -32,6 +22,7 @@ public class AccountBalanceChecker {
         subscriber.setBalance(subscriber.getBalance() - moneyToPurchase);
         System.out.println("You successfully purchased");
         System.out.println("Your current balance: $" + subscriber.getBalance());
+        premiumBehaviour.changeSubscriptionStatus(subscriber);
     }
 
     public void increaseMoney(double moneyForInserting){

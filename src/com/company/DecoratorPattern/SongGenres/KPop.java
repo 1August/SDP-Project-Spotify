@@ -31,5 +31,4 @@ public class KPop extends SongDecorator {
         genres.add("K-Pop");
         return genres;
     }
-
 }

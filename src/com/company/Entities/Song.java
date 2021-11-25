@@ -1,30 +1,24 @@
 package com.company.Entities;
 
 import com.company.AdapterPattern.AudioFormats.IFormat;
-import com.company.AdapterPattern.AudioFormats.MP3Format;
 import com.company.FactoryPattern.SpotifyElements;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Song implements SpotifyElements {
-    //    private int id;
     private String songName;
     private int publishedYear;
     private String description;
-    private List<String> genres;
+    private List<String> genres = new ArrayList<>();
     private String rating;
     private IFormat format;
-
-//    public Song() {
-//
-//    }
 
     public Song(Song song) {
         this.songName = song.songName;
         this.publishedYear = song.publishedYear;
         this.description = song.description;
-        this.genres = new ArrayList<>();
+        this.genres = song.genres;
         this.format = song.format;
         this.rating = song.rating;
         encode();
@@ -36,7 +30,7 @@ public class Song implements SpotifyElements {
         this.description = description;
         this.genres = new ArrayList<>();
         this.format = format;
-        this.rating = rating;
+        this.rating = "";
         encode();
     }
 
@@ -44,19 +38,10 @@ public class Song implements SpotifyElements {
         this.songName = songName;
         this.publishedYear = publishedYear;
         this.description = description;
-        this.genres = genres;
+        this.genres.addAll(genres);
         this.format = format;
         encode();
     }
-
- /*   public void groupOfSetters(String songName, int publishedYear, String description, List<String> genres, String rating, IFormat format){
-        setSongName(songName);
-        setPublishedYear(publishedYear);
-        setDescription(description);
-        setFormat(format);
-        setGenres(genres);
-        setRating(rating);
-    }*/
 
     private void encode(){
         format.encode();
@@ -106,7 +91,7 @@ public class Song implements SpotifyElements {
                 ", publishedYear=" + publishedYear +
                 ", description='" + description + '\'' +
                 ", genres=" + genres +
-                ", rating='" + rating + '\'' +
+                ", rating='" + getRating() + '\'' +
                 ", format=" + format.getFormatInfo() +
                 '}';
     }
@@ -116,7 +101,7 @@ public class Song implements SpotifyElements {
         return "\n\n\t Name of song - '" + getSongName() + "'\n" +
                 "\t Published year - " + getPublishedYear() + '\n' +
                 "\t Description - '" + getDescription() + "'\n" +
-                "\t Genres - " + getGenres() + '\n' +
+                "\t Genres - " + genres + '\n' +
                 "\t Rating - '" + getRating() + "'\n" +
                 "\t Format - " + format.getFormatInfo();
     }

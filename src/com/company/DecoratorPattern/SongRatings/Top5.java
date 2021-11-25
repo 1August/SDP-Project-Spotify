@@ -34,5 +34,4 @@ public class Top5 extends SongDecorator {
     public List<String> getGenres() {
         return super.getGenres();
     }
-
 }

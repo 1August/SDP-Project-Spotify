@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Artist implements Observable, SpotifyElements {
-    //    private int id;
     private String name;
     private String surname;
     private String email;
@@ -36,10 +35,6 @@ public class Artist implements Observable, SpotifyElements {
         for (Observer subscriber : subscriber) subscriber.update(songs, this.name + " " + this.surname);
     }
 
-//    public Artist() {
-//
-//    }
-
     public Artist(Artist artist) {
         this.name = artist.name;
         this.surname = artist.surname;
@@ -53,16 +48,6 @@ public class Artist implements Observable, SpotifyElements {
         this.email = email;
         this.password = password;
     }
-
-    public Artist(String name, String surname, String email, String password, List<Song> songs) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.songs = songs;
-    }
-
-
 
     public String getName() {
         return name;

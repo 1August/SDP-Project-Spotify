@@ -5,11 +5,11 @@ import com.company.Entities.Song;
 
 import java.util.List;
 
-public class EDM extends SongDecorator {
-    List<String> genres = super.getGenres();
-    public EDM(Song song) {
+public class Jazz extends SongDecorator {
+    public Jazz(Song song) {
         super(song);
     }
+    List<String> genres = super.getGenres();
 
     @Override
     public String getSongName() {
@@ -28,8 +28,7 @@ public class EDM extends SongDecorator {
 
     @Override
     public List<String> getGenres() {
-        genres.add("EDM");
+        genres.add("Jazz");
         return genres;
     }
-
 }

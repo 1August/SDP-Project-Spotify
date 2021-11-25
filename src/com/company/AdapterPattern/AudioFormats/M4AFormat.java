@@ -15,6 +15,22 @@ public class M4AFormat implements IFormat{
         return formatCode;
     }
 
+    public String getFormatName() {
+        return formatName;
+    }
+
+    public void setFormatName(String formatName) {
+        this.formatName = formatName;
+    }
+
+    public String getFormatCode() {
+        return formatCode;
+    }
+
+    public void setFormatCode(String formatCode) {
+        this.formatCode = formatCode;
+    }
+
     @Override
     public String getFormatInfo() {
         return formatName;

@@ -3,11 +3,7 @@ package com.company.DecoratorPattern.SongGenres;
 import com.company.DecoratorPattern.SongDecorator;
 import com.company.Entities.Song;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-
 
 public class HipHopAndRap extends SongDecorator {
     public HipHopAndRap(Song song) {
@@ -35,5 +31,4 @@ public class HipHopAndRap extends SongDecorator {
         genres.add("Hip-Hop/Rap");
         return genres;
     }
-
 }

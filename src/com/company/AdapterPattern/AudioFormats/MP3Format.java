@@ -3,7 +3,6 @@ package com.company.AdapterPattern.AudioFormats;
 public class MP3Format implements IFormat {
     private String formatName = "MP3";
     private String formatCode;
-//    private WAVFormat wavFormat;
 
     public MP3Format(WAVFormat wavFormat) {
         formatCode = wavFormat.getFormatCode();
@@ -16,13 +15,24 @@ public class MP3Format implements IFormat {
         return formatCode;
     }
 
+    public String getFormatName() {
+        return formatName;
+    }
+
+    public void setFormatName(String formatName) {
+        this.formatName = formatName;
+    }
+
+    public String getFormatCode() {
+        return formatCode;
+    }
+
+    public void setFormatCode(String formatCode) {
+        this.formatCode = formatCode;
+    }
+
     @Override
     public String getFormatInfo() {
         return formatName;
     }
-
-    public String getFormatName() {
-        return formatName;
-    }
-   
 }

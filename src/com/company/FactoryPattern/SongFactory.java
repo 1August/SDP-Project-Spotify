@@ -1,16 +1,11 @@
 package com.company.FactoryPattern;
 
 import com.company.Entities.Artist;
-import com.company.Entities.Song;
 import com.company.Entities.Subscriber;
+import com.company.Entities.Song;
 import com.company.FacadePattern.SpotifyArtistAccount;
 
 public class SongFactory implements SpotifyFactory{
-//    @Override
-//    public SpotifyElements createSpotifyElement() {
-//        return new Song();
-//    }
-
     SpotifyArtistAccount spotifyArtistAccount = new SpotifyArtistAccount();
 
     @Override
