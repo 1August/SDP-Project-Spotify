@@ -24,12 +24,33 @@ import java.util.Scanner;
 
 public class Main {
 
+//    @author (classes and interfaces only, required)
+//    @version (classes and interfaces only, required. See footnote 1)
+//    @param (methods and constructors only)
+//    @return (methods only)
+//    @exception (@throws is a synonym added in Javadoc 1.2)
+//    @see
+//    @since
+//    @serial (or @serialField or @serialData)
+//    @deprecated (see How and When To Deprecate APIs)
+
+    /**
+     * @author <a href="mailto:boktaban@gmail.com">Maksat Kuanysh</a>
+     *     Maksat - Adapter
+     *     Maksat + Akbala - Observer
+     *     Olzhas - Decorator
+     *     Olzhas + Akbala - Strategy
+     *     Olzhas + Maksat: Facade, Factory
+     */
+
 //    TODO:
-//      ✅ Сhange all subscribers to class observer and change artist to observable
-//      ✅ FACTORY
-//      ✅ STRATEGY
-//      ✅ Add repo for subs to add liked songs
-//      ✅ Beautify iformat (or maybe Song) toString()
+//      ✅ Beautify toString() of Songs
+//      🔳 ✅ - Maybe fixed (Need to test) -> 233 row of this code in subscriber service function check if artist exist
+//      ✅ Beatify available songs of artist (in artist)
+//      🔳 ✅ - Maybe it has (Need to test with sub account) -> Add to subscriber service method of getting songs of artist in spotify artist account class
+//      🔳 Add register/unregister methods for subs service (subscriber) --
+//      ✅ See why we have 2 same genres
+
 
     static SpotifySubAccount spotifySubAccount = new SpotifySubAccount();
     static SpotifyArtistAccount spotifyArtistAccount = new SpotifyArtistAccount();
@@ -40,7 +61,12 @@ public class Main {
     static WAVFormat wavFormat = new WAVFormat();
     static IFormat iFormat = new MP3Format(wavFormat);
 
-//Login and registration system (methods)
+    /**
+     *
+     * @param isArtist Login and registration system (methods)
+     * @return true/false
+     *
+     */
 
     public static boolean loginAndRegisterSystem(boolean isArtist) {
         Scanner scanner = new Scanner(System.in);
@@ -205,8 +231,9 @@ public class Main {
         System.out.println("2. Top up balance");
         System.out.println("3. List all artists");
         System.out.println("4. List songs of artist");
-        System.out.println("5. Add song to my playlist");
-        System.out.println("6. Show my playlist");
+        System.out.println("5. Subscribe for artist");
+        System.out.println("6. Add song to my playlist");
+        System.out.println("7. Show my playlist");
         System.out.println("0. Exit");
 
         int choose = scanner.nextInt();
@@ -234,12 +261,16 @@ public class Main {
                 System.out.println("Enter the surname of artist: ");
                 String artistSurname = scanner.next();
 // IF ARTIST EXISTS
-                for (Song song : spotifySubAccount.getSongsOfArtist(artistName, artistSurname))
-                    System.out.println(song.showInfo());
-                System.out.println();
+                if (spotifyArtistAccount.existsArtistByNameAndSurname(artistName, artistSurname)){
+                    for (Song song : spotifySubAccount.getSongsOfArtist(artistName, artistSurname))
+                        System.out.println(song.showInfo() + '\n');
+                } else
+                    System.out.println("Artist with this name do not exists!" + '\n');
                 subscriberServices();
                 break;
             case 5:
+                System.out.println("Please e");
+            case 6:
                 System.out.println("Enter the name of the song: ");
                 String songName = scanner.next();
                 System.out.println("Enter the name of artist: ");
@@ -249,7 +280,7 @@ public class Main {
                 spotifySubAccount.addSongToPlaylist(temporarySubscriber.getEmail(), songName, songArtistName, songArtistSurname);
                 subscriberServices();
                 break;
-            case 6:
+            case 7:
                 System.out.println("Your playlist: ");
                 System.out.println(temporarySubscriber.getSongs());
                 subscriberServices();
@@ -275,7 +306,7 @@ public class Main {
         SpotifyElements spotifyArtist1 = factory.createSpotifyElement(new Artist("Maksat", "Kuanysh", "maksat@example.com", "qwerty"));
         SpotifyElements spotifyArtist2 = factory.createSpotifyElement(new Artist("Akbala", "Tleugaliyeva", "akbala@example.com", "qwerty"));
         SpotifyElements spotifyArtist3 = factory.createSpotifyElement(new Artist("Olzhas", "Otep", "olzhas@example.com", "qwerty"));
-
+        System.out.println(song1);
         //        Creating songs by factory
         factory = new SongFactory();
         factory.createSpotifyElement(((Artist) spotifyArtist1).getEmail(), song3);
@@ -287,7 +318,7 @@ public class Main {
         factory.createSpotifyElement(((Artist) spotifyArtist3).getEmail(), song4);
         factory.createSpotifyElement(((Artist) spotifyArtist2).getEmail(), song7);
         factory.createSpotifyElement(((Artist) spotifyArtist2).getEmail(), song6);
-
+        //        Adding song into artist songlist
         iFormat = new M4AFormat(wavFormat);
         factory.createSpotifyElement(((Artist) spotifyArtist2).getEmail(), song2);
         factory.createSpotifyElement(((Artist) spotifyArtist3).getEmail(), song5);

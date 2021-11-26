@@ -39,4 +39,18 @@ public class ArtistRepository {
         }
         return null;
     }
+    
+    public boolean existsArtistByNameAndSurname(String name, String surname){
+        for (Artist artist : artists) {
+            if (artist.getName().equals(name) && artist.getSurname().equals(surname)) return true;
+        }
+        return false;
+    }
+    
+    public boolean existsArtistByEmail(String email){
+        for (Artist artist : artists) {
+            if (artist.getEmail().equals(email)) return true;
+        }
+        return false;
+    }
 }

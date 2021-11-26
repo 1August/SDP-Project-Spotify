@@ -10,11 +10,6 @@ import java.util.List;
 public class SpotifyArtistAccount {
     private static ArtistRepository artistRepository = new ArtistRepository();
 
-//    Проверить почему не используется
-//    public SpotifyArtistAccount(String name, String surname, String email, String password){
-//        artistRepository.saveArtist(new Artist(name, surname, email, password));
-//    }
-
     public SpotifyArtistAccount() {}
 
     public Artist getArtist(String email){
@@ -49,5 +44,13 @@ public class SpotifyArtistAccount {
 
     public List<Observer> getSubscribersOf(String name, String surname){
         return artistRepository.getSubscribersOf(name, surname);
+    }
+    
+    public boolean existsArtistByNameAndSurname(String name, String surname){
+        return artistRepository.existsArtistByNameAndSurname(name, surname);
+    }
+    
+    public boolean existsArtistByEmail(String email){
+        return artistRepository.existsArtistByEmail(email);
     }
 }

@@ -3,13 +3,15 @@ package com.company.DecoratorPattern.SongGenres;
 import com.company.DecoratorPattern.SongDecorator;
 import com.company.Entities.Song;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class KPop extends SongDecorator {
+
     public KPop(Song song) {
         super(song);
+        song.getGenres().add("K-Pop");
     }
-    List<String> genres = super.getGenres();
 
     @Override
     public String getSongName() {
@@ -28,7 +30,9 @@ public class KPop extends SongDecorator {
 
     @Override
     public List<String> getGenres() {
-        genres.add("K-Pop");
-        return genres;
+//        List<String> genres = new ArrayList<>();
+//        genres.add("K-Pop");
+//        super.getGenres().addAll(genres);
+        return super.getGenres();
     }
 }

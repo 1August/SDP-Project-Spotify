@@ -3,13 +3,16 @@ package com.company.DecoratorPattern.SongGenres;
 import com.company.DecoratorPattern.SongDecorator;
 import com.company.Entities.Song;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Alternative extends SongDecorator {
+    //    List<String> genres = super.getGenres();
+
     public Alternative(Song song) {
         super(song);
+        song.getGenres().add("Alternative");
     }
-    List<String> genres = super.getGenres();
 
     @Override
     public String getSongName() {
@@ -28,7 +31,9 @@ public class Alternative extends SongDecorator {
 
     @Override
     public List<String> getGenres() {
-        genres.add("Alternative");
-        return genres;
+//        List<String> genres = new ArrayList<>();
+//        genres.add("Alternative");
+//        super.getGenres().addAll(genres);
+        return super.getGenres();
     }
 }

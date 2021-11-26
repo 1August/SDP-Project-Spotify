@@ -117,13 +117,11 @@ public class Subscriber implements Observer, SpotifyElements{
 
     @Override
     public String toString() {
-        return "Subscriber{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", balance=" + balance +
-                '}';
+        return
+                "Name='" + name +
+                ", Surname='" + surname +
+                ", Email='" + email ;
+
     }
 
     @Override

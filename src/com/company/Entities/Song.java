@@ -30,7 +30,7 @@ public class Song implements SpotifyElements {
         this.description = description;
         this.genres = new ArrayList<>();
         this.format = format;
-        this.rating = "";
+        this.rating = rating;
         encode();
     }
 
@@ -39,6 +39,7 @@ public class Song implements SpotifyElements {
         this.publishedYear = publishedYear;
         this.description = description;
         this.genres.addAll(genres);
+        this.rating = "";
         this.format = format;
         encode();
     }
@@ -86,14 +87,13 @@ public class Song implements SpotifyElements {
 
     @Override
     public String toString() {
-        return "Song{" +
-                " songName='" + songName + '\'' +
-                ", publishedYear=" + publishedYear +
-                ", description='" + description + '\'' +
-                ", genres=" + genres +
-                ", rating='" + getRating() + '\'' +
-                ", format=" + format.getFormatInfo() +
-                '}';
+        return
+                "\t" + songName  +
+                ", published year: " + publishedYear +
+                ", format:" + format.getFormatInfo() + "\n" +
+                "\t\tGenres:" + getGenres() + '\n' +
+                "\t\tRating:" + rating + '\n' +
+                "\t\tDescription:" + description + "\n\n";
     }
 
     @Override

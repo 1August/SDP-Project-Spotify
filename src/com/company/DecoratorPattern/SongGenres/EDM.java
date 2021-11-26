@@ -3,13 +3,18 @@ package com.company.DecoratorPattern.SongGenres;
 import com.company.DecoratorPattern.SongDecorator;
 import com.company.Entities.Song;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EDM extends SongDecorator {
-    List<String> genres = super.getGenres();
+//    List<String> genres = super.getGenres();
+
     public EDM(Song song) {
         super(song);
+        song.getGenres().add("EDM");
     }
+
+
 
     @Override
     public String getSongName() {
@@ -28,8 +33,10 @@ public class EDM extends SongDecorator {
 
     @Override
     public List<String> getGenres() {
-        genres.add("EDM");
-        return genres;
+//        List<String> genres = new ArrayList<>();
+//        genres.add("EDM");
+//        super.getGenres().addAll(genres);
+        return super.getGenres();
     }
 
 }

@@ -100,9 +100,9 @@ public class Artist implements Observable, SpotifyElements {
 
     @Override
     public String showInfo(){
-        return  "\t Name of artist - '" + name + "\n" +
-                "\t Surname of artist -'" + surname + "\n" +
-                "\t Songs: " + songs + "\n\n" +
+        return  "\t Name of artist - " + name + "\n" +
+                "\t Surname of artist -" + surname + "\n" +
+                "\t Songs: \n" + songs + "\n\n" +
                 "\t Subscribers: " + subscriber + '\n';
     }
 }

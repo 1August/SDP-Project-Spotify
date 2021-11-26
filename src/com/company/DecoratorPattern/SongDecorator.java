@@ -13,9 +13,17 @@ public abstract class SongDecorator extends Song {
         this.song = song;
     }
 
-    public SongDecorator(String songName, int publishedYear, String description, String rating, IFormat format) {
-        super(songName, publishedYear, description, rating, format);
-    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// ОСТОРОЖНО Я ЗАКОМЕНТИЛ НО МОЖЕТ ГДЕ ТО ИСПОЛЬЗУЕТСЯ ТОЧНО НЕ ЗНАЮ - МАКС
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//    public SongDecorator(String songName, int publishedYear, String description, String rating, IFormat format) {
+//        super(songName, publishedYear, description, rating, format);
+//    }
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// ОСТОРОЖНО Я ЗАКОМЕНТИЛ НО МОЖЕТ ГДЕ ТО ИСПОЛЬЗУЕТСЯ ТОЧНО НЕ ЗНАЮ - МАКС
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public String getSongName() {
@@ -39,7 +47,7 @@ public abstract class SongDecorator extends Song {
 
     @Override
     public List<String> getGenres() {
-        return this.song.getGenres();
+        return song.getGenres();
     }
 
     @Override
