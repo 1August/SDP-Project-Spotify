@@ -31,7 +31,7 @@ public class Subscriber implements Observer, SpotifyElements{
         return "\t Name - '" + name + "'\n" +
                 "\t Surname - '" + surname + "'\n" +
                 "\t Email - '" + email + "'\n" +
-                "\t PremuimStatus - '" + havePremium;
+                "\t PremuimStatus - '" + havePremium + "'";
     }
 
     public void showSubscription(){
@@ -121,7 +121,6 @@ public class Subscriber implements Observer, SpotifyElements{
                 "Name='" + name +
                 ", Surname='" + surname +
                 ", Email='" + email ;
-
     }
 
     @Override

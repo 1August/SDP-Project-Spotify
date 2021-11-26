@@ -53,4 +53,24 @@ public class ArtistRepository {
         }
         return false;
     }
+
+    public boolean subscribeToArtist(String artistName, String artistSurname, Observer observer){
+        for (Artist artist : artists) {
+            if (artist.getName().equals(artistName) && artist.getSurname().equals(artistSurname)){
+                artist.register(observer);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean unsubscribeFromArtist(String artistName, String artistSurname, Observer observer){
+        for (Artist artist : artists) {
+            if (artist.getName().equals(artistName) && artist.getSurname().equals(artistSurname)){
+                artist.unregister(observer);
+                return true;
+            }
+        }
+        return false;
+    }
 }

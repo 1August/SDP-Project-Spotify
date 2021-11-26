@@ -53,4 +53,11 @@ public class SpotifyArtistAccount {
     public boolean existsArtistByEmail(String email){
         return artistRepository.existsArtistByEmail(email);
     }
+
+    public boolean subscribeToArtist(String artistName, String artistSurname, Observer observer){
+        return artistRepository.subscribeToArtist(artistName, artistSurname, observer);
+    }
+    public boolean unsubscribeFromArtist(String artistName, String artistSurname, Observer observer){
+        return artistRepository.unsubscribeFromArtist(artistName, artistSurname, observer);
+    }
 }

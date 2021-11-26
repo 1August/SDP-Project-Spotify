@@ -6,11 +6,8 @@ import com.company.Entities.Subscriber;
 import com.company.Repositories.SubscriberRepository;
 
 public class SubscriberFactory implements SpotifyFactory{
-//    @Override
-//    public SpotifyElements createSpotifyElement() {
-//        return new Subscriber();
-//    }
     SubscriberRepository subscriberRepository = new SubscriberRepository();
+
     @Override
     public SpotifyElements createSpotifyElement(String artistEmail, Song song) {
         return null;
